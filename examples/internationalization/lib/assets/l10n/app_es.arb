@@ -1,0 +1,38 @@
+{
+  "app_title": "Internacionalización",
+  "description": "Esto es un ejemplo de L10n para soportar multiples idiomas",
+  "initial_greetings": "Hola !, {name}",
+  "products_count": "{count, plural one{No tienes productos} many{Solo tienes un producto} other{Tienes {count} productos}}",
+  "@products_count": {
+    "description": "This is an example for plural strings",
+    "placeholders": {
+      "type": "int"
+    }
+  },
+  "product_categories": "{category, select phone{Celular} watch{Reloj} other{Otro}}",
+  "@product_categories": {
+    "description": "This is an example for select strings"
+  },
+  "money": "Tu saldo: {value}",
+  "@money": {
+    "description": "Example of number format",
+    "placeholders": {
+      "value": {
+        "type": "double",
+        "format": "currency",
+        "optionalParameters": {
+          "decimalDigits": 2
+        }
+      }
+    }
+  },
+  "current_day": "Hoy: {date}",
+  "@current_day": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  }
+}
