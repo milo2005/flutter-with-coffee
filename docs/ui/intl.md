@@ -143,7 +143,7 @@ En el ejemplo anterior el contendio de **app_en.arb** es un documento JSON que c
 Lo anterior se va a generar en Flutter de la siguiente manera (Aun no hemos visto como se genera los archivos):
 
 ```dart
-Text(AppLocalizations.of(context).applicationTitle)
+final value = AppLocalizations.of(context).applicationTitle;
 ```
 
 Cada String en el archivo arb puede tener información asociada (metadata) que describa ese string y que permita generar un codigo mas completo, por ejemplo:
@@ -195,7 +195,7 @@ Los tipos solo pueden ser String, int, double, num, Object o DateTime.
 El ejemplo anterior va a generar un codigo como el siguiente:
 
 ```dart
-Text(AppLocalizations.of(context).wellcomeMessage("Dario", 10)) 
+final value = AppLocalizations.of(context).wellcomeMessage("Dario", 10);
 ```
 
 En caso de ser valores decimales o de moneda y se pueden describir aun mas, por ejemplo:
@@ -365,7 +365,7 @@ Para agregar otro solo debemos agregar otro archivo arb especificando el idioma 
 <!-- tabs:end -->
 
 
-# Usar los Strings
+# 5. Usar los Strings
 Para usar los Strings primero debemos generar la clase que nos va a ayudar a usar los archivos arb, para eso usamos este comando en la terminal
 
 ```
@@ -401,10 +401,12 @@ En Android la configuración es automatica pero en iOS debemos agregar lo siguie
 ```xml
   <key>CFBundleLocalizations</key>
   <array>
-      <string>English</string>
-      <string>French</string>
+      <string>en</string>
+      <string>es</string>
   </array>
 ```
+
+Los valores dentro del array deben venir en este  [formato](https://lingohub.com/developers/supported-locales/language-designators-with-regions), en este [enlace](https://github.com/milo2005/flutter-with-coffee/blob/master/examples/internationalization/ios/Runner/Info.plist#L50) hay un ejemplo de configuración.
 
 ## Clase AppLocalizations
 
