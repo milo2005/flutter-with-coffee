@@ -6,7 +6,7 @@
     - [Monorepos](setup/monorepo.md)
 - UI
     - [Multi-Idioma](ui/intl.md)
-    - [Navegación V2](ui/ui-adaptatives.md)
+    - [Navegación V2](ui/navigation2.md)
     - [Animaciones](ui/animations/overview.md)    
 - Testing
     - [Bases](testing/testing.md)
