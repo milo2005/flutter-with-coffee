@@ -21,7 +21,7 @@ Estos son algunos temas que estan en nuestras notas o que estamos agregando en e
 |Tema | Estado | Doc | Ejemplo |
 |-----|--------|-----|---------|
 |Stack - Productivo | WIP | --- | ---|
-|Intl (Soporte multi-idioma) | WIP | --- | ---|
+|Intl (Soporte multi-idioma) | Done | [Doc](https://milo2005.github.io/flutter-with-coffee/#/ui/intl) | [Repo](https://github.com/milo2005/flutter-with-coffee/tree/master/examples/internationalization)|
 |Animaciones | WIP | --- | --- |
 |Environments | WIP | --- | --- |
 |UI Adaptativas | WIP | --- | --- |
