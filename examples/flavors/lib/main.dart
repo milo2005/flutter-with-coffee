@@ -1,8 +1,9 @@
 import 'package:flavors/app.dart';
-import 'package:flavors/di/injector.dart';
 import 'package:injectable/injectable.dart';
 
+import 'di/injector.dart';
+
 void main() {
-  configureDependencies(Environment.dev);
+  configureDependencies(Environment.prod);
   setupApp();
 }
