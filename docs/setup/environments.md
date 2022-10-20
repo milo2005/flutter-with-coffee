@@ -2,7 +2,7 @@
 
 Cuando hablamos de environments nos referimos a diferentes configuraciones o inclusive implementaciones que pueda tener la aplicación, por ejemplo podemos desarrollar una aplicación que cuando se publique en la tienda de aplicaciones haga operaciones de lectura o escritura a algun servicio como puede ser Firebase o un servicio Web, que pasa si necesitamos realizar pruebas o implementar una nueva feature que realice operaciones sobre un servicio, no deberiamos usar los datos de que ya esten usandoce es decir los de **producción** deberiamos probar con otros datos que nos permitan manipular los datos sin modificar los que estan funcionando, es decir podriamos crear una configuración de la app que apunte a los datos productivos y otra configuración que apunte a datos de prueba.
 
-?> En este [link](https://github.com/milo2005/flutter-with-coffee/tree/master/examples/flavors) hay un ejemplo de como manejar environments con injección de dependencias, mas info en esta [sección](setup/environments.md?id=algunas-ideas).
+?> En este [link](https://github.com/milo2005/flutter-with-coffee/tree/master/examples/environments) hay un ejemplo de como manejar environments con injección de dependencias, mas info en esta [sección](setup/environments.md?id=algunas-ideas).
 
 Por lo genera hablamos de tres environments:
 
