@@ -20,11 +20,11 @@ Estos son algunos temas que estan en nuestras notas o que estamos agregando en e
 
 |Tema | Estado | Doc | Ejemplo |
 |-----|--------|-----|---------|
-|Intl (Soporte multi-idioma) | Done | [Doc](https://milo2005.github.io/flutter-with-coffee/#/ui/intl) | [Repo](https://github.com/milo2005/flutter-with-coffee/tree/master/examples/internationalization)|
+|Intl (Soporte multi-idioma) | Done | [Doc](https://milo2005.github.io/flutter-with-coffee/#/ui/intl) | [Example](https://github.com/milo2005/flutter-with-coffee/tree/master/examples/internationalization)|
 |Stack - Productivo | WIP | --- | ---|
 |Animaciones | WIP | --- | --- |
-|Environments | WIP | --- | --- |
-|Navigación v2 | WIP | --- | --- |
+|Environments | Done | [Doc](https://milo2005.github.io/flutter-with-coffee/#/setup/environments) | [Example](https://github.com/milo2005/flutter-with-coffee/tree/master/examples/environments) |
+|Navigación v2 | Done | [Doc](https://milo2005.github.io/flutter-with-coffee/#/ui/navigation2)  | [Example](https://github.com/milo2005/flutter-with-coffee/tree/master/examples/navigationv2) |
 |Testing | WIP | --- | ---|
 |Monorepos | WIP | --- | --- |
 
