@@ -1,20 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:navigationv2/di/injector.dart';
 import 'package:navigationv2/domain/usescases/auth/is_logged_usecase.dart';
+import 'package:navigationv2/presentation/home/home_router.dart';
 import 'package:navigationv2/presentation/login/login_page.dart';
 import 'package:navigationv2/presentation/products/products_router.dart';
 
-final GlobalKey<NavigatorState> rootNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'root');
-final GlobalKey<NavigatorState> _shellNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'shell');
-
 final GoRouter appRouter = GoRouter(
-    navigatorKey: rootNavigatorKey,
-    initialLocation: "/products",
+    initialLocation: "/home",
     routes: [
       GoRoute(path: "/login", builder: (ctx, state) => const LoginPage()),
+      ...homeRouter,
       productsRouter,
     ],
     redirect: (ctx, state) async {

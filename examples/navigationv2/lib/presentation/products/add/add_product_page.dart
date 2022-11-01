@@ -11,21 +11,21 @@ class AddProductPage extends StatelessWidget {
         title: const Text("Agregar Producto"),
       ),
       body: Center(
-          child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text("Pantalla apra agregar productos"),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: () => context.pop(),
-              child: const Text("Regresar"),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text("Pantalla apra agregar productos"),
+              const SizedBox(height: 16),
+              TextButton(
+                onPressed: () => context.pop(),
+                child: const Text("Regresar"),
+              ),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

@@ -24,7 +24,7 @@ class _LoginPageContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
-      listener: (ctx, state) => ctx.replace("/products"),
+      listener: (ctx, state) => ctx.replace("/"),
       builder: (ctx, state) => _setContentState(ctx, state),
     );
   }
