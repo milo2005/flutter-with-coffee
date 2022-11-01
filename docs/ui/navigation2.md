@@ -292,7 +292,7 @@ final appRouter = GoRouter(
 
 Cuando hablamos de rutas anidadas nos referimos a navegación que se pueda dar dentro de un [BottomNavigation](https://m2.material.io/components/bottom-navigation), un ejemplo de aplicación es Instagram que tiene una navegación con este tipo.
 
-!> Go router (v 5.1.1) tiene un componente para implementar este tipo de navegación llamado **ShellRouter** pero al dia de hoy parece que solo funciona con la navegación a travez de **go**, por lo que tiene mal comportamiento cuando se usa un **push**, por lo que si necesita este tipo de navegación se recomienda hacerlo [manualmente]() o con la libreria [breamer](https://pub.dev/packages/beamer).
+!> Go router (v 5.1.1) tiene un componente para implementar este tipo de navegación llamado **ShellRouter** pero al dia de hoy parece que solo funciona con la navegación a travez de **go**, por lo que tiene mal comportamiento cuando se usa un **push**, por lo que si necesita este tipo de navegación se recomienda hacerlo [manualmente](https://github.com/milo2005/flutter-with-coffee/blob/master/examples/navigationv2/lib/presentation/home/home_router.dart) o con la libreria [breamer](https://pub.dev/packages/beamer).
 
 
 ### Ordenar Rutas
@@ -377,4 +377,4 @@ Los metodos disponibles para navegar son los siguientes:
 |replace| Hace lo mismo que un push solo que quita la pantalla actual |
 |go|Es una version declarativa del push, podriamos hacer la analogia de escribir una url en un navegador, lo que hace es eliminar todo el stack actual (Todas las pantallas abiertas) y abre un nuevo stack|
 
-Para aclarar mas el comportamiento de **go**, cuando tenemos [rutas hijas]() abrimos todo el stack, es decir si navegamos hacia `/products/add` estariamos borrando todas las pantallas actuales y quedarian abiertas las pantallas [ListProductPage, AddProductPage].
+Para aclarar mas el comportamiento de **go**, cuando tenemos [rutas hijas](ui/navigation2?id=rutas-hijas) abrimos todo el stack, es decir si navegamos hacia `/products/add` estariamos borrando todas las pantallas actuales y quedarian abiertas las pantallas [ListProductPage, AddProductPage].
