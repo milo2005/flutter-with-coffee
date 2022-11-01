@@ -207,6 +207,6 @@ final appRouter = GoRouter(
 
 ### Rutas anidadas
 
-
+!> en la version **5.1.1** de go_router no es posible usar ShellRouter
 
 ### Navegación entre pantallas
