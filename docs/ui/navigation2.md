@@ -2,7 +2,7 @@
 
 Estas notas son para explorar la **Navegación V2** que se deberia usar en los proyectos nuevos y sobre todo los que quieran dar soporte a Web.
 
-?> En este [enlace]() se encuentra un ejemplo con todas las features de la navegación v2 con [Go Router](), que es la libreria oficial de flutter para la nueva navegación.
+?> En este [enlace](https://github.com/milo2005/flutter-with-coffee/tree/master/examples/navigationv2) se encuentra un ejemplo con todas las features de la navegación v2 con [Go Router](https://pub.dev/packages/go_router), que es la libreria oficial de flutter para la nueva navegación.
 
 ## Navegación V1
 
@@ -73,7 +73,7 @@ La navegación v1 no permite especificar rutas para ir a una seccion en particul
 !> Por las limitaciones mencionadas anteriormente se debe utilizar la navegación V2 para todos los proyectos.
 
 
-## Navegación V2
+## Navegación V2 - Go Router
 
 La navegación v2 nos da mucha mas flexibilidad para navegar entre pantallas, entre las caracteristicas mas importantes:
 
@@ -101,9 +101,8 @@ flutter pub add go_router
 
 Podemos crear un archivo para organizar toda la logica de navegación:
 
-`lib/app_router.dart`
+*lib/app_router.dart*
 ```dart
-
 final appRouter = GoRouter(
   routes: [],
 );
@@ -112,7 +111,7 @@ final appRouter = GoRouter(
 
 **- Agregamos las rutas a Material App**
 
-`lib/main.dart`
+*lib/main.dart*
 ```dart
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -139,7 +138,7 @@ En **2** agregamos nuestro **GoRouter** en la app.
 
 Para agregar rutas lo hacemos a traves de la clase **GoRoute**
 
-`lib/app_router.dart`
+*lib/app_router.dart*
 ```dart
 
 final appRouter = GoRouter(
@@ -150,13 +149,21 @@ final appRouter = GoRouter(
       builder: (context, state) => HomePage(),
     ),
     GoRoute(
+      path:"/home",
+      builder: (context, state) => HomePage(),
+    ),
+    GoRoute(
+      path:"/home/notifications",
+      builder: (context, state) => NotificationsPage(),
+    ),
+    GoRoute(
       path:"/add",
       builder: (context, state) => AddProductPage(),
     ),
     GoRoute(
       path:"/detail/:id",
       builder: (context, state) => DetailProductPage(),
-    ),
+    ),    
   ],
 );
 
@@ -166,9 +173,9 @@ La propiedad **builder** de GoRoute nos proporciona el contexto y el state, el *
 
 ### Rutas Hijas
 
-Podemos organizar las rutas en jerarquias, esto es util cuando queremos organizar las rutas de un mismo feature
+Podemos organizar las rutas en jerarquias, esto es util cuando queremos organizar las rutas de un mismo feature y tambien tiene un comportamiento cuando usamos **go** en lugar **push**.
 
-`lib/app_router.dart`
+*lib/app_router.dart*
 ```dart
 
 final appRouter = GoRouter(
@@ -198,15 +205,176 @@ final appRouter = GoRouter(
 
 ```
 
+La ruta principal seria `/products` pero tendria dos sub rutas `add` y `:id` es decir que para navegar a **AddProductPage** debemos usar la ruta `/products/add`.
 
+?> El uso de sub rutas tiene un comportamiento diferente cuando se usa **go** en lugar de **push**, para mas detalle en esta [sección](ui/navigation2?id=navegacion-entre-pantallas).
 
 
 ### Envio de datos en el path
 
+Cuando definimos una ruta con **GoRoute** podemos enviar datos en el path o como query params
 
+*lib/app_router.dart*
+```dart
+final appRouter = GoRouter(
+  // ...
+  routes: [
+    GoRoute(
+      path: "/movies"
+      builder: (context, state) {
+        final sort = state.queryParams["sort"] ?? "descending"; // 1
+        return ListMoviePage(sortBy: sort);
+      }
+    ),
+    GoRoute(
+      path: "/movies/:idMovie",
+      builder: (context, state){
+        final id = state.params["idMovie"]; // 2
+        return DetailMovie(id: id);
+      }
+    ),
+  ]
+);
+```
+
+A travez de **state** podemos obtener la información de la ruta y los datos, como por ejemplo en:
+
+1. Asumimos que puede llegar un query param llamado **sort**, por lo que lo podemos obtener con la propiedad **queryParams**.
+
+`/movies?sort=ascending`
+
+2. El path tiene un campo dinamico **idMovie**, eso quiere decir que idMovie puede tomar cualquier valor, lo obtenemos mediante la propiedd **params**.
+
+`/movies/123`
+
+### Redirecciones
+
+Go router nos permite redireccionar a otras rutas, estas redireciones pueden estar ubicadas a nivel de router general o de cada ruta por ejemplo:
+
+*lib/app_router.dart*
+```dart
+final appRouter = GoRouter(
+  // ...
+  routes: [
+    GoRoute(
+      path: "/",
+      redirect: (ctx, state) => "/home", // 1
+    ),
+    GoRoute(
+      path: "/home",
+      builder: (ctx, state)=> LoginPage(),  
+    ),
+    GoRoute(
+      path: "/login",
+      builder: (ctx, state)=> LoginPage(),      
+    ),
+  ],
+  redirect: (ctx, state) { // 2
+    final path = state.location;
+    final isLoggedUC = getIt<IsLoggedUseCase>();
+
+    if(path == "/login" || isLoggedUC()) {
+      return null;
+    }
+
+    return "/login";
+  }
+)
+```
+1. Aqui hacemos un redirección a nivel de ruta, es decir si navegamos hacia `/`, go router va a redirigir hacia `/home`;
+2. Aqui hacemos una redirección a nivel del router es decir va a aplicar a todas las rutas:
+- Obtenemos el path actual
+- Obtenemos un servicio o un use case que nos indique si el usuario ha iniciado sesion o no
+- Verificamos si la ruta es `/login` o si el usuario esta logeado, en ese casos e retorna un **null** para indicarle al router que no se debe redireccionar a otra ruta, por lo que continua con la ruta anterior.
+- Si no esta logeado retornamos `/login` para que el usuario pueda iniciar sesion.
 
 ### Rutas anidadas
 
-!> en la version **5.1.1** de go_router no es posible usar ShellRouter
+Cuando hablamos de rutas anidadas nos referimos a navegación que se pueda dar dentro de un [BottomNavigation](https://m2.material.io/components/bottom-navigation), un ejemplo de aplicación es Instagram que tiene una navegación con este tipo.
 
-### Navegación entre pantallas
+!> Go router (v 5.1.1) tiene un componente para implementar este tipo de navegación llamado **ShellRouter** pero al dia de hoy parece que solo funciona con la navegación a travez de **go**, por lo que tiene mal comportamiento cuando se usa un **push**, por lo que si necesita este tipo de navegación se recomienda hacerlo [manualmente]() o con la libreria [breamer](https://pub.dev/packages/beamer).
+
+
+### Ordenar Rutas
+
+Cuando la aplicación crezca va ser mas complicado mantener todas las rutas en un solo archivo como **app_router.dart**, por lo que puede ser util segmentarlo segun features, por ejemplo algunas ideas:
+
+<!-- tabs:start -->
+#### **lib/app_router.dart**
+```dart
+final appRouter = GoRouter(
+  initialLocation: "/",
+  routes: [
+    ...mainRoutes, // 1
+    productRoutes  // 2
+  ]  
+);
+```
+
+1. Debido a que main routes es un array podemos agregarlo con el operador spread
+2. productRoutes solo es un objeto de GoRouter por lo que lo agregamos directamente
+
+#### **lib/products/products_router.dart**
+
+```dart
+final productRoutes = GoRoute(
+  path: "/products"
+  builder: (ctx, state) => ListProductPage(),
+  routes: [
+    GoRoute(
+      path: "add",
+      builder: (ctx, state) => const AddProductPage(),
+    ),
+  ]
+);
+```
+
+#### **lib/home/home_router.dart**
+
+```dart
+final List<GoRoute> mainRoutes = [
+  GoRoute(
+    path: "/"
+    redirect: (ctx, state) => "/home" // 1
+  ),
+  GoRoute(
+    path: "/home"
+    builder: (ctx, state) => HomePage(),    
+  ),
+  GoRoute(
+    path: "/home/profile"
+    builder: (ctx, state) => ProfilePage(),    
+  )
+];
+```
+
+1. Cuando se lance el path `/` se va a redirigir a `/home` y se va a cargar HomePage.
+
+<!-- tabs:end -->
+
+
+
+### Navegacion entre pantallas
+
+Para navegar entre pantallas podemos hacerlo de la siguiente manera:
+
+```dart
+GoRoter.of(context).push("/path");
+```
+
+La libreria nos proporciona extensiones para que la navegación se haga mas sencilla:
+
+```dart
+context.path("/path");
+```
+
+Los metodos disponibles para navegar son los siguientes:
+
+| Metodo | Descripción |
+|--------|-------------|
+|push| Agrega una nueva pantalla al stack, es decir navegamos hacia adelante |
+|pop| Quita una pantalla del stack es decir retorcedemos a la pantalla anterior |
+|replace| Hace lo mismo que un push solo que quita la pantalla actual |
+|go|Es una version declarativa del push, podriamos hacer la analogia de escribir una url en un navegador, lo que hace es eliminar todo el stack actual (Todas las pantallas abiertas) y abre un nuevo stack|
+
+Para aclarar mas el comportamiento de **go**, cuando tenemos [rutas hijas]() abrimos todo el stack, es decir si navegamos hacia `/products/add` estariamos borrando todas las pantallas actuales y quedarian abiertas las pantallas [ListProductPage, AddProductPage].
