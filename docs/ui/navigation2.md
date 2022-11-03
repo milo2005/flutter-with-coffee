@@ -365,7 +365,7 @@ GoRoter.of(context).push("/path");
 La libreria nos proporciona extensiones para que la navegación se haga mas sencilla:
 
 ```dart
-context.path("/path");
+context.push("/path");
 ```
 
 Los metodos disponibles para navegar son los siguientes:
